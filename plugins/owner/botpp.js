@@ -1,24 +1,28 @@
 const handler = async (m, { conn }) => {
-    const q = m.quoted || m;
-    const mime = q.mimetype || '';
+    const q = m.quoted ? m.quoted : m;
+    const mime = (q.msg || q).mimetype || '';
 
     if (!/image/.test(mime)) {
-        return m.reply('🖼️ رد على صورة لتغيير صورة البوت');
+        return m.reply('✨ يرجى الرد على صورة لتتمكن من تغيير صورة البوت');
     }
 
     try {
-        const media = await q.download();
-        await conn.updateProfilePicture(conn.user.jid, media);
-        m.reply('✅ تم تغيير صورة بروفايل البوت');
+        const media = await q.download?.();
+        if (!media) throw new Error('فشل تحميل الصورة');
+
+        // بدون decodeJid
+        const botJid = conn.user.id;
+
+        await conn.updateProfilePicture(botJid, media);
+
+        m.reply('✅ تم تحديث صورة الملف الشخصي للبوت بنجاح يا **𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷**');
     } catch (error) {
-        console.error(error);
-        m.reply(error.message);
+        console.error('ERROR:', error);
+        m.reply('❌ حدث خطأ أثناء التحديث:\n' + error.message);
     }
 };
 
-handler.usage = ["ضع"];
-handler.category = "owner";
-handler.command = ["ضع", "botpp"];
+handler.help = ['botpp'];
+handler.tags = ['owner'];
+handler.command = ['ضع', 'botpp'];
 handler.owner = true;
-
-export default handler;
