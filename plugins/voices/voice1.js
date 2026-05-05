@@ -6,13 +6,13 @@ const run = async (m, { conn, bot, command }) => {
     const q = m.quoted ? m.quoted : m;
     const mime = (q.msg || q).mimetype || '';
 
-    if (!mime) return m.reply('*❲ ❤️ ❳ ~ رد علي الصوت عشان يتحول ~ ❲ 💙 ❳ *');
+    if (!mime) return m.reply('*❲ 🕷 ❳ رد علي الصوت عشان يتحول*');
     await m.react("⏳")
     const media = await q.download();
     const link = await uploadTmpfiles(media);
     const { data: { seconds } } = await Utils.duration(link);
     
-    if (seconds > 20) return m.reply("مينفعش فوق 20 ثانيه");
+    if (seconds > 20) return m.reply("لازم اقل من 20 ثانية");
     
     let num;
     switch (command) {
