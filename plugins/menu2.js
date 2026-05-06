@@ -1,20 +1,21 @@
 const CATEGORIES = [
-    [1, 'التـحـمـيـل', 'downloads', '🕷'],
-    [2, 'الـمـجـمـوعـات', 'group', '🕷'],
-    [3, 'الـمـلـصـقـات', 'sticker', '🕷'],
-    [4, 'الـمـطـوريـن', 'owner', '🕷'],
-    [5, 'امـثـلـه', 'example', '🕷'],
-    [6, 'الـادوات', 'tools', '🕷'],
-    [7, 'الـبـحـث', 'search', '🕷'],
-    [8, 'الادمــن', 'admin', '🕷'],
-    [9, 'الالــعـاب', 'games', '🕷'],
-    [10, 'الچيف', 'gif', '🕷'],
-    [11, 'الـبــنـك', 'bank', '🕷'],
-    [12, 'الـذكـاء الاصـطـنـاعـي', 'ai', '🕷'],
-    [13, 'الـبـوتـات الـفـرعـي', 'sub', '🕷'],
-    [14, 'مـعـلومـات الـبـوت', 'info', '🕷'],
-    [15, 'الـالــقــاب', 'nicknames', '🕷'],
-    [16, 'أخــرى', 'other', '🕷']
+    [1, 'التـحـمـيـل', 'downloads', '🕸'],
+    [2, 'الـمـجـمـوعـات', 'group', '🕸'],
+    [3, 'الـمـلـصـقـات', 'sticker', '🕸'],
+    [4, 'الـمـطـوريـن', 'owner', '🕸'],
+    [5, 'امـثـلـه', 'example', '🕸'],
+    [6, 'الـادوات', 'tools', '🕸'],
+    [7, 'الـبـحـث', 'search', '🕸'],
+    [8, 'الادمــن', 'admin', '🕸'],
+    [9, 'الالــعـاب', 'games', '🕸'],
+    [10, 'الچيف', 'gif', '🕸'],
+    [11, 'الـبــنـك', 'bank', '🕸'],
+    [12, 'الـذكـاء الاصـطـنـاعـي', 'ai', '🕸'],
+    [13, 'الـبـوتـات الـفـرعـي', 'sub', '🕸'],
+    [14, 'مـعـلومـات الـبـوت', 'info', '🕸'],
+    [15, 'الـالــقــاب', 'nicknames', '🕸'],
+    [16, 'أخــرى', 'other', '🕸'],
+    [17, 'الاسـلامـيـات', 'Islamic', '🕸']
 ];
 
 const getCat = n => CATEGORIES.find(c => c[0] === n);
@@ -30,12 +31,12 @@ const context = (jid, img) => ({
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363425546384005@newsletter',
-        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥 🕷️',
         serverMessageId: 0
     },
     externalAdReply: {
         title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
-        body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝚍 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
+        body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍िफ𝚢 𝚊𝚗𝐝 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
         thumbnailUrl: img,
         sourceUrl: '',
         mediaType: 1,
@@ -47,10 +48,10 @@ async function handler(m, { conn, bot, command, args }) {
     const selected = parseInt(args[0]);
     const now = new Date();
     const uptimeSeconds = process.uptime();
-const hours = Math.floor(uptimeSeconds / 3600);
-const minutes = Math.floor((uptimeSeconds % 3600) / 60);
-const seconds = Math.floor(uptimeSeconds % 60);
-const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const hours = Math.floor(uptimeSeconds / 3600);
+    const minutes = Math.floor((uptimeSeconds % 3600) / 60);
+    const seconds = Math.floor(uptimeSeconds % 60);
+    const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     const date = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
     const time = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     
@@ -66,11 +67,11 @@ const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).pad
 
         const menuText = `
 *قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا*
-╭─┈─┈─┈─⟞🕸⟝─┈─┈─┈─╮
+╭─┈─┈─┈─⟞🕷⟝─┈─┈─┈─╮
 ┃ ⌯🍂︙ اهـلا → *[ @${m.sender.split("@")[0]} ]*
 ┃ ⌯🚀︙ الـتشـغـيـل → ${uptimeFormatted}
 ┃ ⌯👾︙ الـتـاريـخ → ${date} - ${time}
-╰─┈─┈─┈─⟞🕸⟝─┈─┈─┈─╯
+╰─┈─┈─┈─⟞🕷⟝─┈─┈─┈─╯
 > *_اختار قسم من القائمة عشان يبعتلك اوامر القسم_*`;
         
         await conn.sendButtonNormal(m.chat, {
@@ -86,7 +87,7 @@ const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).pad
             }],
             mentions: [m.sender],
             newsletter: {
-                name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+                name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥 🕷️',
                 jid: '120363425546384005@newsletter'
             }
         }, global.reply_status);
@@ -95,7 +96,7 @@ const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).pad
 
     const cat = getCat(selected);
     if (!cat) {
-        await conn.sendMessage(m.chat, { text: '*❌ اختار رقم صحيح من 1 لـ 15*', contextInfo: context(m.sender, getImg(bot)) }, { quoted: m });
+        await conn.sendMessage(m.chat, { text: '*❌ اختار رقم صحيح من 1 لـ 17*', contextInfo: context(m.sender, getImg(bot)) }, { quoted: m });
         return;
     }
 
