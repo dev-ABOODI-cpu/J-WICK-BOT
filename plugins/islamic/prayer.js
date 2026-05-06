@@ -40,16 +40,18 @@ const run = async (m, { conn, bot }) => {
 
   const timeStr = `${diffHours > 0 ? diffHours + ' ساعة و ' : ''}${diffMinutes} دقيقة`;
 
-  const prayerMessage = `🕋 *الزمن المتبقي لصلاة ${nextPrayer.name}*
+  const prayerMessage = `🕋 *| الصلاة القادمة: ${nextPrayer.name}*
 
+⏳ *الوقت المتبقي:* ${timeStr}
+
+📖 *آية للتأمل:*
 ﴿ رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ وَإِقَامَةِ الصَّلَاةِ ﴾
 
-✨ حان الوقت للصلاة: باقي على صلاة ${nextPrayer.name} حوالي ${timeStr}.
-
-📖 *حديث شريف:*
+✨ *فضل الصلاة:*
 "ما من مسلم يتطهر فيتم الطهور ثم يصلي الصلوات الخمس إلا كان كفارة لما بينهن." [رواه مسلم]
 
-📲 @everyone`;
+ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ
+♡ 𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🏮〈`;
 
   await m.reply(prayerMessage);
 };
