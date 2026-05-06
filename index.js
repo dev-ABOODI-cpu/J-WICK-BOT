@@ -58,9 +58,51 @@ config.info = {
 client.start();
 
 setTimeout(async () => {
-if (client.commandSystem) { 
-sub(client)
+  if (client.commandSystem) { 
+    sub(client);
   }
+
+  // فحص الوقت كل دقيقة (60000 مللي ثانية) لإرسال التنبيه التلقائي
+  setInterval(async () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // قائمة أوقات الصلاة التقريبية
+    const prayers = [
+      { name: 'الفجر', h: 4, m: 30 },
+      { name: 'الظهر', h: 12, m: 0 },
+      { name: 'العصر', h: 15, m: 30 },
+      { name: 'المغرب', h: 18, m: 20 },
+      { name: 'العشاء', h: 19, m: 45 }
+    ];
+
+    for (const prayer of prayers) {
+      if (hours === prayer.h && minutes === prayer.m) {
+        console.log(`⏰ حان الآن وقت صلاة ${prayer.name}! جاري الإرسال للجروبات...`);
+
+        try {
+          const groups = await client.groupFetchAllParticipating();
+          const groupList = Object.values(groups);
+
+          for (const group of groupList) {
+            const prayerMessage = `🕋 *تذكير: حان الآن موعد صلاة ${prayer.name}*
+
+﴿ حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ وَقُومُوا لِلَّهِ قَانِتِينَ ﴾
+
+✨ تذكير للصلاة: حان الوقت لدخول وقت صلاة ${prayer.name}. تقبل الله منا ومنكم صالح الأعمال.
+
+📲 @everyone`;
+
+            await client.sendMessage(group.id, { text: prayerMessage });
+            await new Promise(r => setTimeout(r, 1500));
+          }
+        } catch (e) {
+          console.log("حدث خطأ أثناء الإرسال التلقائي:", e);
+        }
+      }
+    }
+  }, 60000);
 }, 2000);
 
 
@@ -74,8 +116,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 
-/* 
-=========== Memory Monitor ========== 
+/* =========== Memory Monitor ========== 
 
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024
