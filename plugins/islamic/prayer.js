@@ -1,64 +1,104 @@
+import axios from "axios";
+
 const run = async (m, { conn, bot }) => {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
 
-  // أوقات الصلاة التقريبية
-  const prayers = [
-    { name: 'الفجر', h: 4, m: 30 },
-    { name: 'الظهر', h: 12, m: 0 },
-    { name: 'العصر', h: 15, m: 30 },
-    { name: 'المغرب', h: 18, m: 20 },
-    { name: 'العشاء', h: 19, m: 45 }
-  ];
+  try {
 
-  let nextPrayer = prayers[0];
-  let foundNext = false;
+    const now = new Date();
+    const currentMinutes =
+      now.getHours() * 60 + now.getMinutes();
 
-  for (const p of prayers) {
-    if (hours < p.h || (hours === p.h && minutes < p.m)) {
-      nextPrayer = p;
-      foundNext = true;
-      break;
+    const country = "Egypt";
+    const city = "Cairo";
+
+    // جلب مواقيت الصلاة من نفس API
+    const res = await axios.get(
+      "https://api.aladhan.com/v1/timingsByCity",
+      {
+        params: {
+          city,
+          country,
+          method: 5
+        }
+      }
+    );
+
+    const timings =
+      res.data?.data?.timings;
+
+    if (!timings) {
+      return m.reply("❌ لم يتم جلب مواقيت الصلاة");
     }
-  }
 
-  if (!foundNext) {
-    nextPrayer = prayers[0];
-  }
+    const prayers = [
+      { name: "الفجر", key: "Fajr" },
+      { name: "الظهر", key: "Dhuhr" },
+      { name: "العصر", key: "Asr" },
+      { name: "المغرب", key: "Maghrib" },
+      { name: "العشاء", key: "Isha" }
+    ];
 
-  let diffHours = nextPrayer.h - hours;
-  let diffMinutes = nextPrayer.m - minutes;
+    const list = prayers.map(p => {
 
-  if (diffMinutes < 0) {
-    diffHours -= 1;
-    diffMinutes += 60;
-  }
-  if (diffHours < 0) {
-    diffHours += 24;
-  }
+      const [h, mnt] =
+        timings[p.key].split(":");
 
-  const timeStr = `${diffHours > 0 ? diffHours + ' ساعة و ' : ''}${diffMinutes} دقيقة`;
+      return {
+        name: p.name,
+        total: parseInt(h) * 60 + parseInt(mnt)
+      };
 
-  const prayerMessage = `🕋 *| الصلاة القادمة: ${nextPrayer.name}*
+    });
+
+    let next = null;
+
+    for (const p of list) {
+      if (p.total > currentMinutes) {
+        next = p;
+        break;
+      }
+    }
+
+    // لو بعد العشاء → الفجر
+    if (!next) {
+      next = {
+        ...list[0],
+        total: list[0].total + 24 * 60
+      };
+    }
+
+    const diff =
+      next.total - currentMinutes;
+
+    const h = Math.floor(diff / 60);
+    const mnt = diff % 60;
+
+    const timeStr =
+      `${h > 0 ? h + " ساعة و " : ""}${mnt} دقيقة`;
+
+    const msg = `🕋 *| الصلاة القادمة: ${next.name}*
+
+📍 ${city} - ${country}
 
 ⏳ *الوقت المتبقي:* ${timeStr}
 
-📖 *آية للتأمل:*
-﴿ رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ وَإِقَامَةِ الصَّلَاةِ ﴾
+📖 ﴿ وَأَقِمِ الصَّلَاةَ لِذِكْرِي ﴾
 
-✨ *فضل الصلاة:*
-"ما من مسلم يتطهر فيتم الطهور ثم يصلي الصلوات الخمس إلا كان كفارة لما بينهن." [رواه مسلم]
+✨ تقبل الله منا ومنكم`;
 
-ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ ـ
-♡ 𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🏮〈`;
+    await m.react("🕌");
+    await m.reply(msg);
 
-  await m.reply(prayerMessage);
+  } catch (e) {
+    console.log(e);
+    m.reply("❌ حدث خطأ في جلب مواقيت الصلاة");
+  }
+
 };
 
 run.command = ["prayer", "صلوات"];
 run.usage = ["prayer"];
-run.category = "الإسلاميات";
+run.category = "Islamic";
 run.owner = false;
 
 export default run;
