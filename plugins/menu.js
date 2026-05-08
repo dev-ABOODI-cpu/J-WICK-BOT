@@ -1,23 +1,23 @@
 const MENU_TIMEOUT = 120000;
 
 const CATEGORIES = [
-    [1, 'التـحـمـيـل', 'downloads', '🕸'],
-    [2, 'الـمـجـمـوعـات', 'group', '🕸'],
-    [3, 'الـمـلـصـقـات', 'sticker', '🕸'],
-    [4, 'الـمـطـوريـن', 'owner', '🕸'],
-    [5, 'امـثـلـه', 'example', '🕸'],
-    [6, 'الـادوات', 'tools', '🕸'],
-    [7, 'الـبـحـث', 'search', '🕸'],
-    [8, 'الادمــن', 'admin', '🕸'],
-    [9, 'الالــعـاب', 'games', '🕸'],
-    [10, 'الچيف', 'gif', '🕸'],
-    [11, 'الـبــنـك', 'bank', '🕸'],
-    [12, 'الـذكـاء الاصـطـنـاعـي', 'ai', '🕸'],
-    [13, 'الـبـوتـات الـفـرعـي', 'sub', '🕸'],
-    [14, 'مـعـلومـات الـبـوت', 'info', '🕸'],
-    [15, 'الـالــقــاب', 'nicknames', '🕸'],
-    [16, 'أخــرى', 'other', '🕸'],
-    [17, 'الاسـلامـيـات', 'Islamic', '🕸']
+    [1, 'التـحـمـيـل', 'downloads', '∟'],
+    [2, 'الـمـجـمـوعـات', 'group', '∟'],
+    [3, 'الـمـلـصـقـات', 'sticker', '∟'],
+    [4, 'الـمـطـوريـن', 'owner', '∟'],
+    [5, 'امـثـلـه', 'example', '∟'],
+    [6, 'الـادوات', 'tools', '∟'],
+    [7, 'الـبـحـث', 'search', '∟'],
+    [8, 'الادمــن', 'admin', '∟'],
+    [9, 'الالــعـاب', 'games', '∟'],
+    [10, 'الچيف', 'gif', '∟'],
+    [11, 'الـبــنـك', 'bank', '∟'],
+    [12, 'الـذكـاء الاصـطـنـاعـي', 'ai', '∟'],
+    [13, 'الـبـوتـات الـفـرعـي', 'sub', '∟'],
+    [14, 'مـعـلومـات الـبـوت', 'info', '∟'],
+    [15, 'الـالــقــاب', 'nicknames', '∟'],
+    [16, 'الاسـلامـيـات', 'Islamic', '∟'],
+    [17, 'أخــرى', 'other', '∟']
 ];
 
 const getCat = n => CATEGORIES.find(c => c[0] === n);
@@ -42,12 +42,12 @@ const context = (jid, img) => ({
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363425546384005@newsletter',
-        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥 🕷️',
+        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐃𝐚𝐬𝐡𝐛𝐨𝐚𝐫𝐝',
         serverMessageId: 0
     },
     externalAdReply: {
-        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
-        body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝘥 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
+        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 𝗩𝗘𝗥𝗦𝗜𝗢𝗡 𝟯.𝟬",
+        body: "PREMIUM TEXT-INTERFACE & BY DEV ABOODI",
         thumbnailUrl: img,
         sourceUrl: '',
         mediaType: 1,
@@ -55,7 +55,7 @@ const context = (jid, img) => ({
     }
 });
 
-const menu = async (m, { conn, bot }) => {
+const run = async (m, { conn, bot }) => {
     clean();
 
     const cmds = await bot.getAllCommands();
@@ -70,34 +70,43 @@ const menu = async (m, { conn, bot }) => {
 
     const txt = `
 *قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنْفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا*
-╭─┈─┈─┈─⟞🕷⟝─┈─┈─┈─╮
-${CATEGORIES.map(c => `┃¦︙${c[0]} • *قـسـم ${c[1]} ${c[3]}*`).join('\n')}
-╰─┈─┈─┈─⟞🕷⟝─┈─┈─┈─╯
-> *رد عـلـي الـرسـالـه بـ رقـم الـقـسـم فـقـط بـدون نـقـطـه*`;
+
+╭─⚏────────────
+│ 🕸 المستخدم: @${m.sender.split("@")[0]}
+│ 🕷 النشاط: ${Math.floor(process.uptime() / 3600)}h
+╰─⚏────────────
+
+  ┌── الأقسام المتوفرة ──
+${CATEGORIES.map(c => `  │ ${c[0].toString().padStart(2, '0')} ⊸ قـسـم ${c[1]}`).join('\n')}
+  └──────────────
+
+> *يرجى الرد برقم القسم المطلوب*`.trim();
 
     const msg = await conn.sendMessage(m.chat, {
         text: txt,
         contextInfo: context(m.sender, getImg(bot))
-    }, { quoted: reply_status });
+    }, { quoted: global.reply_status });
 
     global.menus[msg.key.id] = { cats, chatId: m.chat, time: Date.now() };
 };
 
-menu.before = async (m, { conn, bot }) => {
+run.before = async (m, { conn, bot }) => {
     clean();
 
     const menuData = global.menus[m.quoted?.id];
-    if (!menuData) return false;
+    if (!menuData || !m.text) return false;
 
-    const cat = getCat(parseInt(m.text));
-    if (!cat) {
-        await conn.sendMessage(m.chat, { text: '*❌≥ اختار رقم من القائمة بس*' }, { quoted: reply_status });
-        return true;
-    }
+    const selectedNumber = parseInt(m.text.trim());
+    if (isNaN(selectedNumber)) return false;
 
-    const cmds = menuData.cats[cat[2]];
+    const cat = getCat(selectedNumber);
+    if (!cat) return false;
+
+    const categoryKey = cat[2].toLowerCase().trim();
+    const cmds = menuData.cats[categoryKey];
+
     if (!cmds?.length) {
-        await conn.sendMessage(m.chat, { text: '*❌≥ القسم فاضي*' }, { quoted: reply_status });
+        await conn.sendMessage(m.chat, { text: `⚠️ القسم المختار فارغ حالياً.` }, { quoted: global.reply_status });
         return true;
     }
 
@@ -105,11 +114,9 @@ menu.before = async (m, { conn, bot }) => {
     delete global.menus[m.quoted.id];
 
     let finalCmds = [];
-
     cmds.forEach(c => {
         let rawItems = c.usage || c.command || c.cmd || c.name || [];
         if (!Array.isArray(rawItems)) rawItems = [rawItems];
-
         rawItems.forEach(item => {
             let raw = item;
             if (raw instanceof RegExp || (typeof raw === 'string' && raw.includes('^'))) {
@@ -120,25 +127,24 @@ menu.before = async (m, { conn, bot }) => {
         });
     });
 
-    const cmdsList = finalCmds.map(name => `┃${cat[3]} /${name}`).join('\n');
+    const cmdsList = finalCmds.map(name => `  ├╼ /${name}`).join('\n');
+
+    const resultTxt = `
+╭── ❲ ${cat[1]} ❳
+│
+${cmdsList}
+│
+╰── 𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 ᥫ᭡.ִֶָ𓂃
+
+> *وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ*`.trim();
 
     await conn.sendMessage(m.chat, {
-        text: `
-╭─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╮
-┃ *⌯︙ قـسـم ${cat[1]} ${cat[3]}*
-╰─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╯
-
-${cmdsList}
-
-╭─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╮
-┃ *⌯︙𝐈𝐍 ~ ${bot.config.info.nameBot}*
-╰─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╯
-> *وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ*`.trim(),
+        text: resultTxt,
         contextInfo: context(m.sender, getImg(bot))
-    }, { quoted: reply_status });
+    }, { quoted: global.reply_status });
 
     return true;
 };
 
-menu.command = ['الاوامر', 'menu', 'اوامر'];
-export default menu;
+run.command = ['الاوامر', 'menu', 'اوامر'];
+export default run;
