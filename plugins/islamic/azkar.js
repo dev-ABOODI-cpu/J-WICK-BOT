@@ -53,7 +53,7 @@ ${selected.content}
 
 run.command = ["azkar", "اذكار"];
 run.usage = ["azkar"];
-run.category = "الإسلاميات";
+run.category = "Islamic";
 run.owner = false;
 
 export default run;
