@@ -62,7 +62,7 @@ ${hadithText}
 
 run.command = ["hadith", "حديث"];
 run.usage = ["hadith"];
-run.category = "الإسلاميات";
+run.category = "Islamic";
 run.owner = false;
 
 export default run;
