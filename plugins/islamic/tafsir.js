@@ -1,75 +1,71 @@
+import axios from "axios";
+
 const run = async (m, { conn, bot }) => {
-  // قائمة تحتوي على مجموعة من الآيات وتفسيراتها للاختيار منها عشوائياً
-  const tafsirList = [
-    {
-      verse: "﴿ إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوْا وَالَّذِينَ هُمْ مُحْسِنُونَ ﴾",
-      surah: "النحل: 128",
-      tafsir: "إن الله بعونه وتوفيقه مع الذين يتقونه باجتناب نواهيه، ومع الذين يحسنون في عبادة ربهم ومعاملة خلقه."
-    },
-    {
-      verse: "﴿ وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ ﴾",
-      surah: "الضحى: 5",
-      tafsir: "أي: سيعطيك ربك في الآخرة من الثواب والكرامة والنعيم حتى ترضى بذلك."
-    },
-    {
-      verse: "﴿ إِنَّمَا أَمْرُهُ إِذَا أَرَادَ شَيْئًا أَنْ يَقُولَ لَهُ كُنْ فَيَكُونُ ﴾",
-      surah: "يس: 82",
-      tafsir: "دلالة على كمال قدرة الله تعالى، وأنه إذا أراد شيئاً فإنما يأمره بالوجود فيوجد بلا تعب ولا ممانعة."
-    },
-    {
-      verse: "﴿ وَهُوَ مَعَكُمْ أَيْنَ مَا كُنْتُمْ ﴾",
-      surah: " الحديد: 4",
-      tafsir: "أي: وهو مطلع عليكم بعلمه وسمعه وبصره أينما كنتم، لا يخفى عليه منكم خافية."
-    },
-    {
-      verse: "﴿ فَاسْتَقِمْ كَمَا أُمِرْتَ وَمَنْ تَابَ مَعَكَ ﴾",
-      surah: "هود: 112",
-      tafsir: "أمر من الله للنبي ﷺ ومن اتبعه بالاستقامة والثبات على دين الله والدعوة إليه."
-    },
-    {
-      verse: "﴿ وَعَسَىٰ أَنْ تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَكُمْ ﴾",
-      surah: "البقرة: 216",
-      tafsir: "الإنسان لا يعلم العواقب، فالله يدبر الأمور بحكمة يعلمها وتخفى على العبد، فربما كان ظاهر الأمر مكروهاً وباطنه رحمة."
-    },
-    {
-      verse: "﴿ الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُمْ بِذِكْرِ اللَّهِ ﴾",
-      surah: "الرعد: 28",
-      tafsir: "طمأنينة القلوب وسكونها لا تكون إلا بذكر الله تعالى، والأنس به، والتقرب إليه."
-    },
-    {
-      verse: "﴿ وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ ﴾",
-      surah: "الأنبياء: 30",
-      tafsir: "بيان لفضل الله وعظمته في خلق الماء، الذي هو سبب حياة كل كائن حي على وجه الأرض."
-    },
-    {
-      verse: "﴿ وَقُلْ رَبِّ زِدْنِي عِلْمًا ﴾",
-      surah: "طه: 114",
-      tafsir: "أمر من الله تعالى لنبيه ﷺ بطلب الزيادة من العلم، وهو إرشاد للأمة بأهمية العلم النافع والتعلم المستمر."
-    },
-    {
-      verse: "﴿ وَادْعُوهُ خَوْفًا وَطَمَعًا ﴾",
-      surah: "الأعراف: 56",
-      tafsir: "أي: ادعوا الله تعالى برهبة من عذابه وعقابه، ورغبة في رحمته وثوابه."
+
+  try {
+
+    await m.react("📖");
+
+    // اختيار سورة وآية عشوائية (تقريب بسيط)
+    const surahNumber =
+      Math.floor(Math.random() * 114) + 1;
+
+    // جلب بيانات السورة
+    const surahRes =
+      await axios.get(
+        `https://api.alquran.cloud/v1/surah/${surahNumber}`
+      );
+
+    const surah =
+      surahRes.data?.data;
+
+    if (!surah) {
+      return m.reply("❌ فشل جلب السورة");
     }
-  ];
 
-  // اختيار تفسير عشوائي
-  const randomIndex = Math.floor(Math.random() * tafsirList.length);
-  const selected = tafsirList[randomIndex];
+    // اختيار آية عشوائية
+    const ayahs = surah.ayahs;
 
-  const tafsirMsg = `📖 *تفسير الآية:*
+    const randomAyah =
+      ayahs[Math.floor(Math.random() * ayahs.length)];
 
-${selected.verse} [${selected.surah}]
+    const ayahKey =
+      `${surahNumber}:${randomAyah.numberInSurah}`;
 
-✨ *التفسير الميسر:*
-${selected.tafsir}`;
+    // جلب التفسير
+    const tafsirRes =
+      await axios.get(
+        `https://api.alquran.cloud/v1/ayah/${ayahKey}/ar.altafsir`
+      );
 
-  await m.reply(tafsirMsg);
+    const tafsir =
+      tafsirRes.data?.data?.text || "لا يوجد تفسير متاح";
+
+    const msg = `╭───────────────✦
+📖 *تفسير آية*
+╰───────────────✦
+
+${randomAyah.text}
+
+📚 ${surah.name} - آية ${randomAyah.numberInSurah}
+
+✨ *التفسير:*
+${tafsir}
+
+━━━━━━━━━━━━━━`;
+
+    await m.reply(msg);
+
+  } catch (e) {
+    console.log(e);
+    m.reply("❌ حدث خطأ أثناء جلب التفسير");
+  }
+
 };
 
 run.command = ["tafsir", "تفسير"];
 run.usage = ["tafsir"];
-run.category = "الإسلاميات";
+run.category = "Islamic";
 run.owner = false;
 
 export default run;
