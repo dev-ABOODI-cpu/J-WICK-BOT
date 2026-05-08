@@ -1,74 +1,72 @@
+import axios from "axios";
+
 const run = async (m, { conn, bot }) => {
-  // قائمة تحتوي على مجموعة كبيرة من الآيات والتأملات للاختيار منها عشوائياً
-  const quranList = [
-    {
-      verse: "﴿ وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ ﴾",
-      surah: "التوبة: 105",
-      reflection: "هذه الآية تحث على الإتقان والعمل الصالح، فاجعل عملك خالصاً لوجه الله، متقناً في أدائه."
-    },
-    {
-      verse: "﴿ وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ ﴾",
-      surah: "البقرة: 186",
-      reflection: "تأمل قرآني: أقرب ما يكون العبد من ربه وهو ساجد، فاجعل دعاءك خالصاً لربك بيقين."
-    },
-    {
-      verse: "﴿ إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوْا وَالَّذِينَ هُمْ مُحْسِنُونَ ﴾",
-      surah: "النحل: 128",
-      reflection: "معية الله للمتقين والمحسنين تكون بالتوفيق والإعانة في الدنيا والآخرة."
-    },
-    {
-      verse: "﴿ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ﴾",
-      surah: "الطلاق: 2-3",
-      reflection: "التقوى هي المفتاح الأعظم لتجاوز المحن والرزق من حيث لا تحتسب."
-    },
-    {
-      verse: "﴿ رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ﴾",
-      surah: "آل عمران: 8",
-      reflection: "دعاء عظيم بالثبات على الهداية وطلب رحمة الله الواسعة."
-    },
-    {
-      verse: "﴿ وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ ﴾",
-      surah: "آل عمران: 139",
-      reflection: "دعوة للتفاؤل وعدم اليأس، فالعزة الحقيقية لله ولرسوله وللمؤمنين."
-    },
-    {
-      verse: "﴿ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾",
-      surah: "الشرح: 5-6",
-      reflection: "بشارة عظيمة بأن الفرج يأتي بعد الشدة والضيق، مهما طال الليل."
-    },
-    {
-      verse: "﴿ وَاصْبِرْ لِحُكْمِ رَبِّكَ فَإِنَّكَ بِأَعْيُنِنَا ﴾",
-      surah: "الطور: 48",
-      reflection: "تأكيد على عناية الله، ورعايته، وحفظه لعباده الصابرين."
-    },
-    {
-      verse: "﴿ وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ ﴾",
-      surah: "غافر: 60",
-      reflection: "وعد الله الصادق بالإجابة لمن يدعوه بيقين وإخلاص."
-    },
-    {
-      verse: "﴿ وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ﴾",
-      surah: "البقرة: 45",
-      reflection: "الوسائل التي تعين المؤمن على تجاوز المحن وتفريج الكربات."
+
+  try {
+
+    await m.react("📖");
+
+    // جلب قائمة السور
+    const surahRes =
+      await axios.get(
+        "https://api.alquran.cloud/v1/surah"
+      );
+
+    const surahs =
+      surahRes.data?.data;
+
+    if (!surahs || surahs.length === 0) {
+      return m.reply("❌ فشل جلب السور");
     }
-  ];
 
-  // اختيار آية عشوائية من القائمة
-  const randomIndex = Math.floor(Math.random() * quranList.length);
-  const selected = quranList[randomIndex];
+    // اختيار سورة عشوائية
+    const randomSurah =
+      surahs[Math.floor(Math.random() * surahs.length)];
 
-  const quranMsg = `📖 *آية قرآنية:*
+    // جلب آيات السورة المختارة
+    const ayahRes =
+      await axios.get(
+        `https://api.alquran.cloud/v1/surah/${randomSurah.number}`
+      );
 
-${selected.verse} [${selected.surah}]
+    const ayahs =
+      ayahRes.data?.data?.ayahs;
 
-✨ *تأمل قرآني:* ${selected.reflection}`;
+    if (!ayahs || ayahs.length === 0) {
+      return m.reply("❌ فشل جلب الآيات");
+    }
 
-  await m.reply(quranMsg);
+    // اختيار آية عشوائية
+    const randomAyah =
+      ayahs[Math.floor(Math.random() * ayahs.length)];
+
+    const text = randomAyah.text;
+    const number = randomAyah.numberInSurah;
+
+    const msg = `╭───────────────✦
+📖 *آية قرآنية*
+╰───────────────✦
+
+${text}
+
+📚 ${randomSurah.name} - آية ${number}
+
+✨ *تأمل:* كلام الله عز وجل هداية ورحمة للمؤمنين
+
+━━━━━━━━━━━━━━`;
+
+    await m.reply(msg);
+
+  } catch (e) {
+    console.log(e);
+    m.reply("❌ حدث خطأ أثناء جلب الآية");
+  }
+
 };
 
 run.command = ["quran", "قران"];
 run.usage = ["quran"];
-run.category = "الإسلاميات";
+run.category = "Islamic";
 run.owner = false;
 
 export default run;
