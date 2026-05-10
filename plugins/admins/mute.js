@@ -1,3 +1,5 @@
+/* ─── ❲ نـظـام الـكـتـم : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const isOwner = (userId, bot) => bot.config?.owners?.some(o => o.jid === userId || o.lid === userId);
 
 const handler = async (m, { conn, command, bot }) => {
@@ -8,74 +10,48 @@ const handler = async (m, { conn, command, bot }) => {
     }
     
     if (!target && m.quoted) {
-        if (typeof m.lid2jid === 'function') {
-            target = await m.lid2jid(m.quoted.sender);
-        } else {
-            target = m.quoted.sender;
-        }
+        target = typeof m.lid2jid === 'function' ? await m.lid2jid(m.quoted.sender) : m.quoted.sender;
     }
     
-    if (!target) return m.reply(`*🔇 كتم/فك_كتم @user*\nاو رد على رسالته`);
-    if (typeof target !== 'string') return m.reply(`*❌ حدث خطأ في تحديد المستخدم*`);
-    if (isOwner(target, bot)) return m.reply(`*❌ لا يمكن كتم المطور*`);
+    if (!target) return m.reply(`─── ❲ تـنـبـيـه ❳ ───\n\n| الاسـتـخـدام : ${command} @user\n| أو قـم بـالـرد عـلـى رسـالـتـه\n\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`);
+    
+    if (isOwner(target, bot)) return m.reply(`─── ❲ فـشـل الـأمـر ❳ ───\n\n| خـطأ : لـا يـمـكـن تـطـبـيـق الـكـتـم عـلـى الـمـطـور\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ───`);
     
     const group = global.db.groups[m.chat] ||= {};
     const muteList = group.mute ||= [];
-    
-    let isMuted = false;
-    for (let i = 0; i < muteList.length; i++) {
-        if (muteList[i] === target) {
-            isMuted = true;
-            break;
-        }
-    }
+    const isMuted = muteList.includes(target);
     
     if (command === "كتم") {
-        if (isMuted) {
-            await conn.sendMessage(m.chat, { text: `*❌ @${target.split('@')[0]} مكتوم*`, mentions: [target] });
-            return;
-        }
+        if (isMuted) return conn.sendMessage(m.chat, { text: `─── ❲ نـظـام الـكـتـم ❳ ───\n\n| الـمـسـتـخـدم : @${target.split('@')[0]}\n| الـحـالـة : مـكـتـوم بـالـفـعـل\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ───`, mentions: [target] });
+
         muteList.push(target);
-        await conn.sendMessage(m.chat, { text: `*✅ تم كتم @${target.split('@')[0]}*\n🔒 لن يتمكن من الكلام`, mentions: [target] });
-    } else if (command === "فك_كتم") {
-        if (!isMuted) {
-            await conn.sendMessage(m.chat, { text: `*❌ @${target.split('@')[0]} ليس مكتوماً*`, mentions: [target] });
-            return;
-        }
-        let newList = [];
-        for (let i = 0; i < muteList.length; i++) {
-            if (muteList[i] !== target) {
-                newList.push(muteList[i]);
-            }
-        }
-        group.mute = newList;
-        await conn.sendMessage(m.chat, { text: `*✅ تم فك كتم @${target.split('@')[0]}*\n🔓 يمكنه الكلام الآن`, mentions: [target] });
+        await conn.sendMessage(m.chat, { text: `─── ❲ نـظـام الـكـتـم ❳ ───\n\n| تـم كـتـم : @${target.split('@')[0]}\n| الـإجـراء : سـيـتـم حـذف رسـائـلـه تـلـقـائـيـاً\n\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`, mentions: [target] });
+    } 
+    
+    else if (command === "فك_كتم") {
+        if (!isMuted) return conn.sendMessage(m.chat, { text: `─── ❲ نـظـام الـكـتـم ❳ ───\n\n| الـمـسـتـخـدم : @${target.split('@')[0]}\n| الـحـالـة : لـيـس مـكـتـومـاً\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ───`, mentions: [target] });
+
+        group.mute = muteList.filter(id => id !== target);
+        await conn.sendMessage(m.chat, { text: `─── ❲ نـظـام الـكـتـم ❳ ───\n\n| تـم فـك الـكـتـم : @${target.split('@')[0]}\n| الـإجـراء : يـمـكـنـه الـآن الـتـحـدث بـحـريـة\n\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`, mentions: [target] });
     }
 };
 
+// الـمـعـالـج الـمـسـؤول عـن حـذف رسـائـل الـمـكـتـومـيـن
 handler.before = async (m, { conn, bot }) => {
-    if (!m.isGroup) return;
+    if (!m.isGroup || !m.sender) return;
     if (m.isOwner || m.isAdmin || isOwner(m.sender, bot)) return;
     
-    const muteList = global.db?.groups[m.chat]?.mute;
-    if (!muteList) return;
-    if (muteList.length === 0) return;
+    const muteList = global.db?.groups?.[m.chat]?.mute;
+    if (!muteList || muteList.length === 0) return;
     
-    let isMuted = false;
-    for (let i = 0; i < muteList.length; i++) {
-        if (muteList[i] === m.sender) {
-            isMuted = true;
-            break;
-        }
-    }
-    
-    if (isMuted) {
+    if (muteList.includes(m.sender)) {
         await conn.sendMessage(m.chat, { delete: m.key });
-        return true;
+        return false; // لـمـنـع الـبـوت مـن مـعـالـجـة الأمـر كـرسـالـة عـاديـة
     }
 };
 
 handler.command = ["كتم", "فك_كتم"];
 handler.admin = true;
+handler.group = true;
 
 export default handler;
