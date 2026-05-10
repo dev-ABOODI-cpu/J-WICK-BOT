@@ -1,58 +1,49 @@
-const handler = async (m, { conn }) => {
-  let targetLid = m.mentionedJid?.[0] || m.quoted?.sender;
-  let targetJid = m.lid2jid(targetLid);
+/* ─── ❲ نـظـام الـتـحـذيـر : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
 
-  if (!targetJid || !targetLid) return m.reply('⚠️ *يرجى منشن الشخص أو الرد على رسالته* ⚠️');
+const handler = async (m, { conn, text }) => {
+  let target = m.mentionedJid?.[0] || m.quoted?.sender;
+  
+  if (!target) return m.reply(`─── ❲ تـنـبـيـه ❳ ───\n\n| يُـرجـى مـنـشـن الـشـخـص أو الـرد عـلـى رسـالـتـه\n\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`);
 
-  const user = (await conn.groupMetadata(m.chat)).participants.find(
-    p => p.id === targetLid || p.phoneNumber === targetJid
-  );
+  const groupMetadata = await conn.groupMetadata(m.chat);
+  const user = groupMetadata.participants.find(p => p.id === target);
 
-  if (!user) return m.reply("❌ المستخدم غير موجود في الجروب");
+  if (!user) return m.reply(`─── ❲ خـطأ ❳ ───\n\n| الـمـسـتـخـدم غـيـر مـوجـود فـي هـذه الـمـجـموعـة\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ───`);
 
-  db.groups[m.chat] ??= {};
-  db.groups[m.chat].warnings ??= {};
+  global.db.groups[m.chat] ??= {};
+  global.db.groups[m.chat].warnings ??= {};
 
-  const id = user.phoneNumber;
-  const jid = targetLid;
+  const warns = global.db.groups[m.chat].warnings;
+  warns[target] = (warns[target] || 0) + 1;
 
-  const warnCount = db.groups[m.chat].warnings[id] =
-    (db.groups[m.chat].warnings[id] || 0) + 1;
+  const warnCount = warns[target];
+  const remaining = 3 - warnCount;
+
+  let message = `─── ❲ سـجـل الـتـحـذيـر ❳ ───\n\n`;
+  message += `| الـمـسـتـخـدم : @${target.split("@")[0]}\n`;
+  message += `| إجـمـالـي الـإنـذارات : [ ${warnCount} / 3 ]\n`;
+  message += `| الـمـتـبـقـي لـلـطـرد : [ ${remaining > 0 ? remaining : 0} ]\n\n`;
+  message += `─── 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ───`;
 
   await conn.sendMessage(m.chat, {
-    text: `⚠️ تم إعطاء إنذار
+    text: message,
+    mentions: [target]
+  }, { quoted: m });
 
-👤: @${id.split("@")[0]}
-📊 عدد الإنذارات: ${warnCount}`,
-    mentions: [jid]
-  }, { quoted: global.reply_status });
-};
-
-handler.before = async (m, { conn }) => {
-  const g = global.db?.groups?.[m.chat];
-  if (!g?.warnings) return false;
-
-  const user = m.sender;
-
-  if (!g.warnings[user]) return false;
-
-  if (g.warnings[user] >= 3) {
-    await conn.sendMessage(m.chat, {
-      text: `🚫 @${user.split("@")[0]} انت خالفت القوانين، سيتم طردك`,
-      mentions: [user]
-    }, { quoted: global.reply_status });
-
-    await conn.groupParticipantsUpdate(m.chat, [user], "remove");
-    delete g.warnings[user];
+  if (warnCount >= 3) {
+    await conn.sendMessage(m.chat, { 
+        text: `─── ❲ قـرار إداري ❳ ───\n\n| الـمـسـتـخـدم : @${target.split("@")[0]}\n| الـسـبـب : تـجـاوز حـد الـتـحـذيـرات\n| الـإجـراء : طـرد نـهـائـي\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚نـنـل ───`, 
+        mentions: [target] 
+    });
+    await conn.groupParticipantsUpdate(m.chat, [target], "remove");
+    delete warns[target];
   }
-
-  return false;
 };
 
 handler.command = ["انذار", "تحذير", "warn"];
-handler.usage = ['انذار'];
 handler.category = "admin";
 handler.admin = true;
-handler.botAdmin = true
+handler.group = true;
+handler.botAdmin = true;
 
 export default handler;
