@@ -1,23 +1,18 @@
-const run = async (m, { args, conn, bot }) => {
-/*
-if (subBots.list().length >= 30) {
-  return m.reply("خلاص العدد اكتمل");
-} // عدد البوتات الي مسموح ب ربطهم فقط
+/* ─── ❲ نـظـام الـتـنـصـيـب : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
 
-*/
-  if (global.db.noSub) return m.reply("المطور قافل التنصيب")
+const run = async (m, { args, conn, bot }) => {
+  if (global.db.noSub) return m.reply("── ❲ تـنـبـيـه ❳ ──\n\n| عـذراً: نـظـام الـتـنـصـيـب مـغـلـق حـالـيـاً بـواسـطـة الـمـطـور")
+  
   try {
     const num = m.sender.split("@")[0].replace(/[+\s-]/g, '');
-
-    if (!/^\d+$/.test(num)) return m.reply("⚠️ رقم الهاتف غير صالح");
+    if (!/^\d+$/.test(num)) return m.reply("── ❲ خـطأ ❳ ──\n\n| رقـم الـهـاتـف غـيـر صـالـح");
 
     const sub = global.subBots;
-    if (!sub) return m.reply("❌ نظام البوتات الفرعية غير متاح");
+    if (!sub) return m.reply("── ❲ خـطأ ❳ ──\n\n| نـظـام الـبـوتـات الـفـرعـيـة غـيـر مـتـاح");
 
-    const init = await m.reply(`⏳ جاري تنصيب بوت للرقم *${num}*...`);
+    const init = await m.reply(`── ❲ جـاري الـتـنـصـيـب ❳ ──\n\n| يـتـم الـآن تـجـهـيـز الـكـود لـلـرقـم : [ ${num} ]\n| يُـرجـى الـإنـتـظـار قـلـيـلاً...`);
 
     const state = { uid: null, pairDone: false, resolved: false, pending: null };
-
     const { images: img } = bot.config.info;
 
     const cleanup = () => {
@@ -29,10 +24,7 @@ if (subBots.list().length >= 30) {
     const handlers = {
       pair: (id, code) => {
         if (state.pairDone) return;
-        if (!state.uid) { 
-          state.pending = { id, code }; 
-          return; 
-        }
+        if (!state.uid) { state.pending = { id, code }; return; }
         if (id !== state.uid) return;
         state.pairDone = true;
         Func.pair(conn, code, num, m, init);
@@ -75,38 +67,22 @@ if (subBots.list().length >= 30) {
 };
 
 run.command = ["تنصيب"];
-run.noSub = true;
-run.usage =  ["تنصيب"];
 run.category = "sub";
 export default run;
-
-
 
 const Func = {
   pair: async (conn, code, num, m, reply_status) => {
     await conn.sendButton(m.chat, {
-      imageUrl: "https://i.postimg.cc/3x08Tky0/d1c5ab1f9e99de515d02e22704f8c845.jpg",
-      bodyText: `🔐⤿ نـظـام الـبـوتـات الـفـرعـيـه 𑁍
-⊱⋅ ──────────── ⋅⊰
-📱 — الرقم: ${num}
-🔑 — الكود: ${code}
-⊱⋅ ──────────── ⋅⊰
-> *_افتح واتساب > الأجهزة المرتبطة > ربط جهاز برقم الهاتف > أدخل الكود_*`,
-      footerText: "@𝑺𝒚𝒔𝒕𝒆𝒎_𝑺𝒖𝒃𝑩𝒐𝒕𝒔_𝑰𝑵",
+      imageUrl: "https://i.postimg.cc/GpyBWT4D/dc653b9a82c4f3d277922290b3a43119.jpg",
+      bodyText: `─── ❲ نـظـام الـبـوتـات الـفـرعـيـة ❳ ───\n\n| الـرقم : [ ${num} ]\n| الـكـود : [ ${code} ]\n\n─── ❲ طـريـقـة الـربـط ❳ ───\n\n| الـإعـدادات > الـأجـهـزة الـمـرتـبـطـة\n| ربـط جـهـاز > ربـط بـرقـم الـهـاتـف\n| ثـم أدخـل الـكـود الـمـرسـل أعـلـاه`,
+      footerText: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣",
       buttons: [
-        { name: "cta_copy", params: { display_text: "⟨🕸| 𝐂𝐨𝐩𝐲 𝐂𝐨𝐝𝐞 |🕸⟩", copy_code: code } },
-        { name: "cta_url", params: { display_text: "⟨🕷| 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐈𝐍 |🕷⟩", url: "https://google.com" } },
+        { name: "cta_copy", params: { display_text: "نسـخ الـكـود", copy_code: code } }
       ],
       mentions: [m.sender],
       newsletter: {
-        name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+        name: '𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣',
         jid: '120363425546384005@newsletter'
-      },
-      interactiveConfig: {
-        buttons_limits: 10,
-        list_title: "@𝑺𝒚𝒔𝒕𝒆𝒎_𝑺𝒖𝒃𝑩𝒐𝒕𝒔_𝑰𝑵",
-        button_title: "Click Here",
-        canonical_url: `https://code.com/${code}`
       }
     }, global.reply_status);
   },
@@ -114,28 +90,18 @@ const Func = {
   ready: async (conn, num, m, img) => {
     await m.react("✅");
     await conn.sendMessage(m.chat, {
-      text: `✅ — *تـم الاتـصـال بـنـجـاح*\n\n📱 الرقم: ${num}\n> *البوت جاهز للاستخدام الآن*`,
-      contextInfo: {
-        externalAdReply: {
-          title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
-          body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝚍 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
-          thumbnailUrl: img,
-          sourceUrl: '',
-          mediaType: 1,
-          renderLargerThumbnail: true
-        }
-      }
+      text: `─── ❲ نـجـاح الـإتـصـال ❳ ───\n\n| تـم ربـط الـبـوت بـنـجـاح\n| الـرقـم : [ ${num} ]\n| الـحـالـة : نـشـط الـآن\n\n─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ───`,
     });
   },
 
   error: async (conn, num, err, m) => {
-    await m.reply(`❌ *فشل الاقتران!*\n\n📱 الرقم: ${num}\n⚠️ الخطأ: ${err?.message || 'غير معروف'}`);
+    await m.reply(`─── ❲ فـشـل الـإقـتـران ❳ ───\n\n| الـرقـم : [ ${num} ]\n| الـخـطأ : [ ${err?.message || 'غير معروف'} ]`);
   },
 
   timeout: async (conn, m, pairDone) => {
     await m.reply(pairDone
-      ? `⏰ تم إرسال الكود لكن لم يتم تأكيد الاتصال.\nتأكد من إدخال الكود في واتساب.`
-      : `⏰ لم يتم استلام كود الاقتران خلال 120 ثانية.\nالرجاء المحاولة مرة أخرى.`
+      ? `── ❲ إنـتـهـاء الـوقـت ❳ ──\n\n| تـم إرسـال الـكـود ولـم يـتـم الـتـأكـيـد\n| يُـرجـى الـمـحـاولـة مـرة أخـرى`
+      : `── ❲ إنـتـهـاء الـوقـت ❳ ──\n\n| لـم يـتـم إسـتـلـام كـود الـإقـتـران\n| تـأكـد مـن صـحـة الـرقـم`
     );
   }
 };
