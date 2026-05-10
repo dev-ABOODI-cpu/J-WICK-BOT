@@ -1,21 +1,38 @@
+/* ─── ❲ كـود الـانـضـمـام : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const handler = async (m, { conn, text, bot }) => {
   if (!m.isOwner) {
-    const ownerJid = bot?.config?.owners[0]?.jid
-    m.reply("` • تم ارسال طلبك لـ المطور • `")
-    await conn.sendMessage(ownerJid, { text: `🔔 *طلب دخول جروب*\nمن: @${m.sender.split("@")[0]}\nالرابط: ${text || "لم يرسل رابط"}`, mentions: [m.sender] });
-    return m.reply("✅ تم إرسال طلبك للمطور");
+    const ownerJid = bot?.config?.owners[0]?.jid;
+    
+    // رسالة للمستخدم بنمط رستم
+    m.reply("*─── ❲ طـلـب انـضـمـام ❳ ───*\n\nتـم إرسـال طـلـبـك إلـى مـطـور الـنـظـام\nسـيـتـم مـراجـعـة الـرابـط والـرد عـلـيـك قـريـبـاً\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+    
+    // إشعار للمطور
+    await conn.sendMessage(ownerJid, { 
+      text: `*─── ❲ إشـعـار جـديـد ❳ ───*\n\n🔔 طـلـب دخـول مـجـمـوعـة\nمـن : @${m.sender.split("@")[0]}\nالـرابـط : ${text || "لـم يُـرسـل رابـط"}\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*`, 
+      mentions: [m.sender] 
+    });
+    return;
   }
 
-  if (!text) return m.reply("❌ أرسل رابط جروب واتساب");
-  if (!text.includes("https://chat.whatsapp.com/")) return m.reply("❌ رابط واتساب فقط");
+  // إذا كان المطور هو من أرسل الأمر
+  if (!text) return m.reply("*─── ❲ تـنـبـيـه ❳ ───*\n\nيُـرجـى إرفـاق رابـط الـمـجـمـوعـة مـع الأمـر\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+  
+  if (!text.includes("https://chat.whatsapp.com/")) {
+    return m.reply("*─── ❲ خـطـأ فـي الـرابـط ❳ ───*\n\nالـنـظـام يـقـبـل فـقـط روابـط مـجـمـوعـات واتـسـاب الـرسـمـيـة\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+  }
 
-  m.react("📂");
-  await conn.groupJoin(text);
-  m.reply("✅ تم الدخول");
+  try {
+    m.react("🛡️");
+    await conn.groupJoin(text.split('com/')[1]);
+    m.reply("*─── ❲ تـم الـتـنـفـيـذ ❳ ───*\n\nتـم انـضـمـام الـمـحـرك إلـى الـمـجـمـوعـة بـنـجـاح\nجـاري تـهـيئة الإعـدادات الـلازمـة\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+  } catch (e) {
+    m.reply("*─── ❲ فـشـل الـانـضـمـام ❳ ───*\n\nتـعـذر الـدخـول، قـد يـكـون الـرابـط مـنـتـهـي أو الـبـوت مـحـظـور\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+  }
 };
 
 handler.usage = ["انضم"];
-handler.category = "group";
-handler.command = ["انضم", "ادخل"];
+handler.category = "owner"; // غيرتها لـ owner لأنها صلاحية مطور
+handler.command = ["انضم", "ادخل", "join"];
 
 export default handler;
