@@ -1,20 +1,26 @@
+/* ─── ❲ إعـادة تـهـيـئـة الـنـظـام : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const test = async (m, { conn, bot }) => {
-  m.react("🔄")
+  // تفاعل التحديث
+  m.react("🔄");
   
-  conn.msgUrl(m.chat, "♡゙ Bot is restarting...", { 
-    title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 𝘪𝘴 𝘢 𝘞𝘩𝘢𝘵𝘴𝘈𝘱𝘱 𝘣𝘰𝘵 𝘧𝘳𝘰𝘮 𝘵𝘩𝘦 𝘝𝘓𝘐𝘕𝘒 𝘓𝘪𝘣𝘳𝘢𝘳𝘺",
-    body: "𝑇𝒉𝑒 𝑏𝑜𝑡 𝑖𝑠 𝑠𝑖𝑚𝑝𝑙𝑒 𝑡𝑜 𝑚𝑜𝑑𝑖𝑓𝑦",
-    img: "https://i.postimg.cc/DZpfhLcs/fda608614ce1da2c5822af87df0e9ad8.jpg",
+  // إرسال رسالة الإشعار بالهوية البصرية للمطور
+  await conn.msgUrl(m.chat, "*─── ❲ جـاري إعـادة الـتـشـغـيـل ❳ ───*\n\nيـتـم الآن تـحـديـث جـمـيـع الـبـروتوكـولات وفـحـص الـمـلـفـات\nسـيـعـود الـنـظـام لـلـعـمـل خـلال ثـوانٍ مـعـدودة\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*", { 
+    title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ | 𝐒𝐲𝐬𝐭𝐞𝐦 𝐑𝐞𝐛𝐨𝐨𝐭",
+    body: "𝐑𝐔𝐒𝐓𝐀𝐌 𝐄𝐧𝐠𝐢𝐧𝐞 𝐢𝐬 𝐫𝐞𝐬𝐭𝐚𝐫𝐭𝐢𝐧𝐠 𝐧𝐨𝐰...",
+    img: "https://i.postimg.cc/50RZLD2X/21317022ddf5862432a39318f314e445.jpg",
     big: false 
   });
   
+  // تأخير بسيط لضمان وصول الرسالة قبل إغلاق العملية
   setTimeout(() => {
     bot.restart();
-  }, 1000); 
+  }, 1500); 
 };
 
-test.usage = ["رستارت"]
+test.usage = ["رستارت"];
 test.category = "owner";
-test.command = ["رستارت", "restart"];
+test.command = ["رستارت", "restart", "اعادة_تشغيل"];
 test.owner = true;
+
 export default test;
