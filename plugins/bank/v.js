@@ -13,7 +13,7 @@ const handler = async (m, { conn, command, text }) => {
         const [name, age] = text.split('|').map(s => s.trim());
         
         if (!name || !age) {
-            return m.reply(`*❌ خطأ:* يجب كتابة الاسم والعمر مفصولين بـ |\n\nمثال:\nتسجيل ڤينوم|20`);
+            return m.reply(`*❌ خطأ:* يجب كتابة الاسم والعمر مفصولين بـ |\n\nمثال:\nعبودي|20`);
         }
         
         if (isNaN(age) || age < 1 || age > 30) {
@@ -23,7 +23,7 @@ const handler = async (m, { conn, command, text }) => {
         user.name = name;
         user.age = parseInt(age);
         
-        const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/4dYymWy1/97fa3a8d01230a0b80a1f9ef6b5fa599.jpg');
+        const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/hjcVPY0m/4994268e94def6e6dcb2d19d60cacce7-(1).jpg');
         
         const msg = `╭─┈─┈─┈─⟞📝⟝─┈─┈─┈─╮
 ┃ *✅ تـم الـتـسـجـيـل بـنـجـاح*
@@ -46,11 +46,11 @@ const handler = async (m, { conn, command, text }) => {
                 forwardingScore: 1,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363425546384005@newsletter',
-                    newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+                    newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
                     serverMessageId: 0
                 },
                 externalAdReply: {
-                    title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | الـسـيـرك الـرقـمـي",
+                    title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣| الـسـيـرك الـرقـمـي",
                     body: "تـسـجـيـل جـديـد فـي الـسـيـرك",
                     thumbnailUrl: profilePic,
                     sourceUrl: '',
@@ -69,7 +69,7 @@ const handler = async (m, { conn, command, text }) => {
         delete user.name;
         delete user.age;
         
-        const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/RVMJ4L9q/087ee6275fa1e235f33f96ca6750eb62.jpg');
+        const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/hjcVPY0m/4994268e94def6e6dcb2d19d60cacce7-(1).jpg');
         
         const msg = `╭─┈─┈─┈─⟞🗑️⟝─┈─┈─┈─╮
 ┃ *✅ تـم حـذف الـتـسـجـيـل*
@@ -91,11 +91,11 @@ const handler = async (m, { conn, command, text }) => {
                 forwardingScore: 1,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363425546384005@newsletter',
-                    newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+                    newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
                     serverMessageId: 0
                 },
                 externalAdReply: {
-                    title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | الـسـيـرك الـرقـمـي",
+                    title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣| الـسـيـرك الـرقـمـي",
                     body: "تـم حـذف الـتـسـجـيـل",
                     thumbnailUrl: profilePic,
                     sourceUrl: '',
