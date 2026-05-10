@@ -1,19 +1,26 @@
+/* ─── ❲ إيقـاف الـنـظـام الـشـامـل : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const test = async (m, { conn, bot }) => {
-  m.react("✅")
+  // تفاعل التأكيد
+  m.react("⚠️");
   
-  conn.msgUrl(m.chat, "♡゙ Stop the bot...", { 
-    title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 𝘪𝘴 𝘢 𝘞𝘩𝘢𝘵𝘴𝘈𝘱𝘱 𝘣𝘰𝘵 𝘧𝘳𝘰𝘮 𝘵𝘩𝘦 𝘝𝘓𝘐𝘕𝘒 𝘓𝘪𝘣𝘳𝘢𝘳𝘺",
-    body: "𝑇𝒉𝑒 𝑏𝑜𝑡 𝑖𝑠 𝑠𝑖𝑚𝑝𝑙𝑒 𝑡𝑜 𝑚𝑜𝑑𝑖𝑓𝑦",
-    img: "https://i.postimg.cc/DZpfhLcs/fda608614ce1da2c5822af87df0e9ad8.jpg",
+  // إرسال إشعار الإغلاق النهائي
+  await conn.msgUrl(m.chat, "*─── ❲ تـعـطـيـل الـنـظـام ❳ ───*\n\nتـم صـدور أمـر الإيـقـاف الـفـوري مـن الـمـطـور\nيـتـم الآن إغـلاق جـمـيـع الـعـمـلـيـات والـمـحـركـات نـهـائـيـاً\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*", { 
+    title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ | 𝐒𝐲𝐬𝐭𝐞𝐦 𝐒𝐡𝐮𝐭𝐝𝐨𝐰𝐧",
+    body: "𝐑𝐔𝐒𝐓𝐀𝐌 𝐄𝐧𝐠𝐢𝐧𝐞 𝐢𝐬 𝐬𝐭𝐨𝐩𝐩𝐢𝐧𝐠 𝐧𝐨𝐰...",
+    img: "https://i.postimg.cc/50RZLD2X/21317022ddf5862432a39318f314e445.jpg",
     big: false 
   });
   
+  // تأخير لمدة ثانية ونصف لضمان وصول الرسالة قبل الإغلاق
   setTimeout(() => {
-    bot.stop();
-  }, 1000); 
+    bot.stop(); // أو process.exit(0) حسب بناء البوت عندك
+  }, 1500); 
 };
 
+test.usage = ["ايقاف"];
 test.category = "owner";
-test.command = ["ايقاف", "stop"];
+test.command = ["ايقاف", "stop", "اغلاق"];
 test.owner = true;
+
 export default test;
