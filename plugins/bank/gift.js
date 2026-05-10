@@ -48,7 +48,7 @@ const handler = async (m, { conn, command }) => {
     user.xp = (user.xp || 0) + reward.xp;
     user.cookies = (user.cookies || 0) + reward.cookies;
     
-    const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/RVMJ4L9q/087ee6275fa1e235f33f96ca6750eb62.jpg');
+    const profilePic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/8PnzTdfH/270100bc89dc3134667e3d422e464b87.jpg');
     
     const msg = `╭─┈─┈─┈─⟞${reward.border}⟝─┈─┈─┈─╮
 ┃ *🎁 هـديـة ${reward.name} 🎁*
@@ -72,7 +72,7 @@ const handler = async (m, { conn, command }) => {
             forwardingScore: 1,
             forwardedNewsletterMessageInfo: {
                 newsletterJid: '120363425546384005@newsletter',
-                newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+                newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
                 serverMessageId: 0
             }
         }
