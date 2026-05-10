@@ -54,7 +54,7 @@ await conn.sendCarousel(m.chat, {
   ],
   mentions: [m.sender],
   newsletter: {
-      name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+      name: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
       jid: '120363425546384005@newsletter'
     },
 }, m)
