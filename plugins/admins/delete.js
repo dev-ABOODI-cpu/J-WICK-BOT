@@ -1,12 +1,30 @@
+/* ─── ❲ مُـطـهـر الـدردشـة : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const handler = async (m, { conn }) => {
-  if (!m.quoted) return m.reply(" 🌹 - رد علي الرساله يا ذكي ")
-  m.quoted.delete()
- // m.delete()
+  // 1. التحقق من الرد على رسالة
+  if (!m.quoted) return m.reply("*─── ❲ تـنـبـيـه ❳ ───*\n\nيُـرجـى الـرد عـلـى الـرسـالـة الـمـراد إزالـتـهـا.\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+
+  try {
+    // 2. تفاعل سريع للإشارة إلى بدء التنفيذ
+    await m.react("🗑️");
+
+    // 3. حذف الرسالة المقتبسة (رسالة الهدف)
+    await m.quoted.delete();
+
+    // 4. (اختياري) حذف رسالة الأمر نفسه ".حذف" عشان الشات يفضل نظيف
+    // لو مش عايزها تتحذف، سيب السطر اللي تحت ده زي ما هو (مهمش)
+    await m.delete(); 
+
+  } catch (err) {
+    console.error(err);
+    m.reply("*─── ❲ خـطـأ فـي الـحـذف ❳ ───*\n\nتـعـذر حـذف الـرسـالـة. قـد تـكـون قـديـمـة جـداً أو أن الـبـوت يـفـتـقـر لـلـصـلاحـيـات.\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*");
+  }
 };
 
-handler.command = ["حذف"];
-handler.usage = ['حذف'];
+handler.help = ['حذف'];
+handler.command = ["حذف", "مسح", "delete", "del"];
 handler.category = "admin";
-handler.admin = true;
+handler.admin = true;      // المنفذ لازم يكون أدمن
+handler.botAdmin = true;   // البوت لازم يكون أدمن عشان يحذف رسائل الغير
 
 export default handler;
