@@ -63,9 +63,9 @@ export default async function before(m, { conn }) {
 ┃ 🏷️ *لقبك الجديد:*
 ┃ ✦ ${newNameLevel} ✦
 
-╭─┈─┈─┈─⟞🎭⟝─┈─┈─┈─╮
+╭─┈─┈─┈─⟞☣︎⟝─┈─┈─┈─╮
 ┃ *العرض لسه مستمر يا بطل* 🎪
-╰─┈─┈─┈─⟞🤡⟝─┈─┈─┈─╯`;
+╰─┈─┈─┈─⟞☣︎⟝─┈─┈─┈─╯`;
         
         await conn.sendMessage(m.chat, {
             text: msg,
@@ -75,13 +75,13 @@ export default async function before(m, { conn }) {
                 forwardingScore: 1,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363425546384005@newsletter',
-                    newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+                    newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
                     serverMessageId: 0
                 },
                 externalAdReply: {
-                    title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | السيرك الرقمي",
+                    title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣| السيرك الرقمي",
                     body: "تـرقـيـة فـي الـسـيـرك",
-                    thumbnailUrl: "https://i.postimg.cc/KY1SSwR1/424e84ee14494d39a1061c2b0a54578c.jpg",
+                    thumbnailUrl: "https://i.postimg.cc/TP0SX0pW/cc389dbeef91cdf2897e8220bf9d082b.jpg",
                     sourceUrl: '',
                     mediaType: 1,
                     renderLargerThumbnail: true
