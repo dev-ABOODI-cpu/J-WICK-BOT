@@ -1,21 +1,45 @@
+/* ─── ❲ سـجـل الـطـلـبـات : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const handler = async (m, { conn }) => {
-  const req = await conn.groupRequestParticipantsList(m.chat);
-  if (!req?.length) return m.reply("📭 لا يوجد ريكوستات");
+  try {
+    // في Meowsab، جلب الطلبات يعتمد على ميثود المجموعة المباشر
+    const groupJid = m.chat;
+    const req = await conn.groupRequestParticipantsList(groupJid);
+    
+    if (!req || req.length === 0) {
+      return m.reply(`─── ❲ سـجـل الـطـلـبـات ❳ ───\n\n| الـحـالـة : لـا تـوجـد طـلـبـات انـضـمـام مـعـلـقـة\n\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`);
+    }
 
-  let text = req.map((r, i) =>
-    `${i + 1}- @${r.phone_number.split("@")[0]}`
-  ).join("\n");
+    let list = "";
+    let mentions = [];
 
-  await conn.sendMessage(m.chat, {
-    text: `📥 قائمة الريكوستات:\n\n${text}`,
-    mentions: req.map(r => r.phone_number)
-  }, { quoted: global.reply_status });
+    req.forEach((participant, i) => {
+      // Meowsab غالباً ما تعيد المعرف في حقل jid أو user
+      const userJid = participant.jid || participant.user;
+      const num = userJid.split('@')[0];
+      list += `| ${i + 1}. @${num}\n`;
+      mentions.push(userJid);
+    });
+
+    const message = `─── ❲ طـلـبـات الـانـضـمـام ❳ ───\n\n| عـدد الـطـلـبـات : [ ${req.length} ]\n\n${list}\n─── 𝐃𝐄𝐕 ! 𝐀𝐁𝐎𝐎𝐃𝐈 ☣︎ ───`;
+
+    // إرسال الرسالة مع المنشن المخصص للمكتبة
+    await conn.sendMessage(groupJid, {
+      text: message,
+      contextInfo: { mentionedJid: mentions }
+    }, { quoted: m });
+
+  } catch (error) {
+    console.error("Meowsab Error:", error);
+    m.reply(`─── ❲ خـطـأ فـي الـنـظـام ❳ ───\n\n| الـسبب : تـعـذر جـلـب الـقـائـمـة حـالـيـاً\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ───`);
+  }
 };
 
-handler.command = ["الريكوستات", "الطلبات"];
-handler.usage = ['الريكوستات'];
+handler.help = ['الريكوستات'];
+handler.command = ["الريكوستات", "الطلبات", "requests"];
 handler.category = "admin";
 handler.admin = true;
-handler.botAdmin = true
+handler.group = true;
+handler.botAdmin = true;
 
 export default handler;
