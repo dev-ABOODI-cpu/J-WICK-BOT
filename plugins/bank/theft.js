@@ -26,7 +26,7 @@ const handler = async (m, { conn }) => {
     if (!success) {
         const penalty = Math.floor(stealAmount / 2);
         userSender.xp = Math.max(0, (userSender.xp || 0) - penalty);
-        const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.pinimg.com/originals/11/26/97/11269786cdb625c60213212aa66273a9.png');
+        const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/QdD7qPRv/f732d69bde2635b8076c40da8537c12f.jpg');
         await conn.sendMessage(m.chat, {
             image: { url: pic },
             caption: `╭─┈─┈─⟞🚨⟝─┈─┈─╮
@@ -49,7 +49,7 @@ const handler = async (m, { conn }) => {
         const available = userTarget.xp;
         userSender.xp = (userSender.xp || 0) + available;
         userTarget.xp = 0;
-        const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/RVMJ4L9q/087ee6275fa1e235f33f96ca6750eb62.jpg');
+        const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/QdD7qPRv/f732d69bde2635b8076c40da8537c12f.jpg');
         await conn.sendMessage(m.chat, {
             image: { url: pic },
             caption: `╭─┈─┈─⟞💰⟝─┈─┈─╮
@@ -72,7 +72,7 @@ const handler = async (m, { conn }) => {
     userTarget.xp -= stealAmount;
     userSender.xp = (userSender.xp || 0) + stealAmount;
     
-    const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/KY1SSwR1/424e84ee14494d39a1061c2b0a54578c.jpg');
+    const pic = await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://i.postimg.cc/QdD7qPRv/f732d69bde2635b8076c40da8537c12f.jpg');
     await conn.sendMessage(m.chat, {
         image: { url: pic },
         caption: `╭─┈─┈─⟞💰⟝─┈─┈─╮
