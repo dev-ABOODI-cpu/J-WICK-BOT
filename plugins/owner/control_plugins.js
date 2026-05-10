@@ -1,3 +1,5 @@
+/* ─── ❲ إدارة مـلـفـات الـنـظـام : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 import fs from 'fs';
 import path from 'path';
 
@@ -5,6 +7,7 @@ const handler = async (m, { conn, bot, command }) => {
     const base = bot.config?.commandsPath || './plugins';
     const [cmd, target] = m.text.split(' ');
     
+    // وظيفة جرد كافة الملفات البرمجية في النظام
     const listFiles = () => {
         const files = [];
         const walk = (dir) => {
@@ -20,6 +23,7 @@ const handler = async (m, { conn, bot, command }) => {
         return files.sort();
     };
     
+    // وظيفة البحث الذكي عن مسار ملف معين
     const findFile = (name) => {
         const search = (dir) => {
             if (!fs.existsSync(dir)) return null;
@@ -39,23 +43,23 @@ const handler = async (m, { conn, bot, command }) => {
     if (command === 'اضافه_ملف') {
         if (!target) {
             const files = listFiles();
-            let msg = `📁 *الملفات الموجودة* (${files.length})\n\n`;
+            let msg = `*─── ❲ جـرد مـلـفـات الـنـظـام ❳ ───*\n\nتـم الـعـثـور عـلـى ( ${files.length} ) مـلـف بـرمـجـي\n\n`;
             if (!files.length) {
-                msg += '└─ لا توجد ملفات';
+                msg += '╰╼ الـنـظـام لا يـحـتـوي عـلـى مـلـفات حـالـيـاً';
             } else {
                 for (let i = 0; i < files.length; i += 20) {
                     const chunk = files.slice(i, i + 20);
-                    msg += `┌─ ${i+1}-${Math.min(i+20, files.length)}\n`;
-                    msg += chunk.map(f => `│ 📄 ${f}`).join('\n') + '\n└────────────────\n\n';
+                    msg += `╭─╼ الـنـطـاق [ ${i+1} - ${Math.min(i+20, files.length)} ]\n`;
+                    msg += chunk.map(f => `│ 📄 ${f}`).join('\n') + '\n╰──────────────────\n\n';
                 }
-                msg += '```.اضافه_ملف المسار/الاسم\n(مع الرد على الكود)```';
+                msg += `*الاسـتـخـدام :*\n.اضافه_ملف [المسار/الاسم]\n( يـجـب الـرد عـلـى الـكـود المـطـلـوب )`;
             }
             return m.reply(msg);
         }
         
-        if (!m.quoted) return m.reply('✦ *الرد على الكود اولا* ✦');
+        if (!m.quoted) return m.reply('*─── ❲ تـنـبـيـه ❳ ───*\n\nيُـرجـى الـرد عـلـى الـكـود المـراد رفـعـه إلـى الـنـظـام\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*');
         const content = m.quoted.text || m.quoted.msg;
-        if (!content) return m.reply('✧ الكود غير موجود ✧');
+        if (!content) return m.reply('*─── ❲ خـطـأ ❳ ───*\n\nالـمـحـتـوى الـمـحـدد لا يـحـتـوي عـلـى كـود صـحـيـح\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*');
         
         const parts = target.split('/');
         const name = parts.pop();
@@ -67,22 +71,22 @@ const handler = async (m, { conn, bot, command }) => {
         
         const filePath = path.join(dir, `${name}.js`);
         fs.writeFileSync(filePath, content);
-        m.reply(`✅ *تم الرفع*\n└─ \`${path.relative(base, filePath)}\``);
+        m.reply(`*─── ❲ تـم الـتـنـصـيـب ❳ ───*\n\nتـم رفـع الـمـلـف الـبـرمـجـي إلـى الـقـاعـدة\n╰╼ الـمـسـار : \`${path.relative(base, filePath)}\`\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*`);
     }
     
     else if (command === 'حذف_ملف') {
         if (!target) {
             const files = listFiles();
-            let msg = `🗑️ *الملفات المتاحة* (${files.length})\n\n`;
+            let msg = `*─── ❲ سـجـل إزالـة الـمـلـفـات ❳ ───*\n\nاخـتـر الـمـلـف المـراد تـطـهـيـره مـن الـنـظـام\n\n`;
             if (!files.length) {
-                msg += '└─ لا توجد ملفات';
+                msg += '╰╼ لا تـوجـد مـلـفـات لـلـحـذف';
             } else {
                 for (let i = 0; i < files.length; i += 20) {
                     const chunk = files.slice(i, i + 20);
-                    msg += `┌─ ${i+1}-${Math.min(i+20, files.length)}\n`;
-                    msg += chunk.map(f => `│ 📄 ${f}`).join('\n') + '\n└────────────────\n\n';
+                    msg += `╭─╼ الـقـائـمـة [ ${i+1} ]\n`;
+                    msg += chunk.map(f => `│ 🗑️ ${f}`).join('\n') + '\n╰──────────────────\n\n';
                 }
-                msg += '```.حذف_ملف المسار/الاسم```';
+                msg += `*الاسـتـخـدام :*\n.حذف_ملف [المسار/الاسم]`;
             }
             return m.reply(msg);
         }
@@ -93,11 +97,12 @@ const handler = async (m, { conn, bot, command }) => {
         }
         
         if (!filePath || !fs.existsSync(filePath)) {
-            return m.reply(`❌ \`${target}.js\`\n└─ غير موجود`);
+            return m.reply(`*─── ❲ خـطـأ ❳ ───*\n\nالـمـلـف الـمـطـلـوب [ ${target}.js ] غـيـر مـوجـود\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*`);
         }
         
         fs.unlinkSync(filePath);
         
+        // تنظيف المجلدات الفارغة لضمان ترتيب النظام
         const clean = (dir) => {
             if (dir === base) return;
             if (fs.existsSync(dir) && fs.readdirSync(dir).length === 0) {
@@ -107,7 +112,7 @@ const handler = async (m, { conn, bot, command }) => {
         };
         clean(path.dirname(filePath));
         
-        m.reply(`🗑️ *تم الحذف*\n└─ \`${path.relative(base, filePath)}\``);
+        m.reply(`*─── ❲ تـمـت الإزالـة ❳ ───*\n\nتـم حـذف الـمـلـف وتـطـهـيـر الـمـسـار بـنـجـاح\n╰╼ الـهـدف : [ ${target} ]\n\n*─── 𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣︎ ───*`);
     }
 };
 
