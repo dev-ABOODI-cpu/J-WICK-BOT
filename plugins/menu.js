@@ -42,11 +42,11 @@ const context = (jid, img) => ({
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363425546384005@newsletter',
-        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐃𝐚𝐬𝐡𝐛𝐨𝐚𝐫𝐝',
+        newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐃𝐚𝐬𝐡𝐛𝐨𝐚𝐫𝐝',
         serverMessageId: 0
     },
     externalAdReply: {
-        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 𝗩𝗘𝗥𝗦𝗜𝗢𝗡 𝟯.𝟬",
+        title: "𝐑𝐔𝐒𝐓𝐀𝐌 ☣ 𝗩𝗘𝗥𝗦𝗜𝗢𝗡 𝟯.𝟬",
         body: "PREMIUM TEXT-INTERFACE & BY DEV ABOODI",
         thumbnailUrl: img,
         sourceUrl: '',
@@ -72,8 +72,8 @@ const run = async (m, { conn, bot }) => {
 *قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنْفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا*
 
 ╭─⚏────────────
-│ 🕸 المستخدم: @${m.sender.split("@")[0]}
-│ 🕷 النشاط: ${Math.floor(process.uptime() / 3600)}h
+│ 🕸  الـمـسـتـخـدم : @${m.sender.split("@")[0]}
+| 🕷  الـتـصـنـيـف : [ ${m.isOwner ? 'مـطـور الـنـظـام' : 'مـسـتـخـدم عـادي'} ]
 ╰─⚏────────────
 
   ┌── الأقسام المتوفرة ──
@@ -134,7 +134,7 @@ run.before = async (m, { conn, bot }) => {
 │
 ${cmdsList}
 │
-╰── 𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 ᥫ᭡.ִֶָ𓂃
+╰──  𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ᥫ᭡.ִֶָ𓂃
 
 > *وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ*`.trim();
 
