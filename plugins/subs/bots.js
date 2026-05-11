@@ -1,12 +1,13 @@
+/* ─── ❲ قـائـمـة الـبـوتـات الـفـرعـيـة : 𝐑𝐔𝐒𝐓𝐀𝐌 ❳ ─── */
+
 const run = async (m, { conn, bot }) => {
   const sub = global.subBots;
-  if (!sub) return m.reply("❌ نـظـام الـبـوتـات الـفـرعـيـه غير متاح");
+  if (!sub) return m.reply("── ❲ خـطأ ❳ ──\n\n| نـظـام الـبـوتـات الـفـرعـيـة غـيـر مـتـاح");
 
   const bots = sub.list();
-  if (bots.length === 0) return m.reply("📭 لا يوجد بوتات فرعية مثبتة");
+  if (bots.length === 0) return m.reply("── ❲ تـنـبـيـه ❳ ──\n\n| لـا يـوجـد بـوتـات فـرعـيـة مـثـبـتـة حـالـيـاً");
 
-  let text = `🤖⤿ الـبـوتـات الـفـرعـيـه 
-*╮┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ـ*\n`;
+  let text = `─── ❲ نـظـام الـبـوتـات الـفـرعـيـة ❳ ───\n\n`;
   
   const mentions = [];
   
@@ -14,37 +15,38 @@ const run = async (m, { conn, bot }) => {
     const jid = b.phone ? `${b.phone}@s.whatsapp.net` : null;
     if (jid) mentions.push(jid);
     
-    text += `🫒 *#${i+1}* \n`;
-    text += `📱 — الرقم: ${jid ? `@${b.phone}` : b.phone || 'غير معروف'}\n`;
-    text += `📍 — الحالة: ${b.connected ? '🟢 متصل' : '🔴 غير متصل'}\n`;
-    text += `📨 — الرسائل: ${b.messages || 0}\n`;
-    text += `🆔 — الايدي: ${b.id}\n`;
-    text += `╯┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ـ\n`;
+    const status = b.connected ? 'مـتـصـل' : 'غـيـر مـتـصـل';
+    
+    text += `| الـرقم : [ ${jid ? `@${b.phone}` : b.phone || 'غير معروف'} ]\n`;
+    text += `| الـحـالـة : [ ${status} ]\n`;
+    text += `| الـرسـائـل : [ ${b.messages || 0} ]\n`;
+    text += `| الـتـسـلـسـل : [ #${i+1} ]\n`;
+    text += `── ── ── ── ── ── ── ──\n`;
   });
   
-  text += `\n> *_✓ الـمـجـمـوع: ${bots.length}_*`;
+  text += `\n| إجـمـالـي الـعـدد : [ ${bots.length} ]\n\n─── 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚نـنـل ───`;
 
   const { images } = bot.config.info;
-  const img = images?.[Math.floor(Math.random() * images.length)] || "https://i.postimg.cc/RVMJ4L9q/087ee6275fa1e235f33f96ca6750eb62.jpg";
+  const img = images?.[Math.floor(Math.random() * images.length)] || "https://i.postimg.cc/vZ51gzTt/785b9c77d049956fb867115a8684317c-(1).jpg";
 
   await conn.sendMessage(m.chat, {
     text: text,
     mentions: mentions,
     contextInfo: {
       externalAdReply: {
-        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
-        body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝚍 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
+        title: "𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥",
+        body: "نـظـام إدارة الـبـوتـات الـفـرعـيـة الـمـتـطـور",
         thumbnailUrl: img,
         sourceUrl: '',
         mediaType: 1,
         renderLargerThumbnail: true
       }
     }
-  }, { quoted: m });
+  }, { quoted: global.reply_status });
 };
 
 run.command = ["البوتات", "bots"];
 run.noSub = true;
-run.usage =  ["تنصيب"];
-run.category = "البوتات";
+run.category = "sub";
+
 export default run;
