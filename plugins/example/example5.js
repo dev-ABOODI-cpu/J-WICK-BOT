@@ -1,7 +1,7 @@
 const example = async (m, { conn }) => {
 
 return await conn.sendButtonNormal(m.chat, {
-  media: { url: 'https://i.postimg.cc/3x08Tky0/d1c5ab1f9e99de515d02e22704f8c845.jpg' },
+  media: { url: 'https://i.postimg.cc/8PnzTdfH/270100bc89dc3134667e3d422e464b87.jpg' },
   mediaType: 'image', // or image
   caption: `hi, @${m.sender.split("@")[0]}`,
   buttons: [
@@ -13,7 +13,7 @@ return await conn.sendButtonNormal(m.chat, {
     { name: "cta_url", params: { display_text: "🔗 Google Link", url: "https://google.com" } },
     
     // 3. Call Button
-    { name: "cta_call", params: { display_text: "📞 Call Support", phone_number: "201234567890" } },
+    { name: "cta_call", params: { display_text: "📞 Call Support", phone_number: "249112727808" } },
     
     // 4. Copy Button
     { name: "cta_copy", params: { display_text: "📋 Copy Code", copy_code: "ABC123XYZ" } },
@@ -39,7 +39,7 @@ return await conn.sendButtonNormal(m.chat, {
   ], 
   mentions: [m.sender],
   newsletter: {
-      name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+      name: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
       jid: '120363425546384005@newsletter'
     },
 }, m)
