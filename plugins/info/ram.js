@@ -9,12 +9,12 @@ const handler = async (m, { conn }) => {
 `;
 
   await conn.msgUrl(m.chat, txt, {
-    img: "https://i.postimg.cc/5y9PBFdV/c99f0b499077e5eea240fb062e62e77e.jpg" ,
+    img: "https://i.postimg.cc/fLnB75jp/b29a1d059255ef3e1c179b5c6f82a0e3.jpg" ,
     caption: txt,
     title: "𝐒𝐩𝐞𝐞𝐝 / 𝐓𝐞𝐬𝐭",
     body: "𝐓𝐞𝐬𝐭𝐢𝐧𝐠 𝐭𝐡𝐞 𝐛𝐨𝐭'𝐬 𝐬𝐩𝐞𝐞𝐝: 𝐈𝐬 𝐢𝐭 𝐟𝐚𝐬𝐭 𝐨𝐫 𝐧𝐨𝐭?",
     newsletter: {
-      name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+      name: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥',
       jid: '120363425546384005@newsletter'
     },
     big: false,
