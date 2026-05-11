@@ -31,11 +31,11 @@ const context = (jid, img) => ({
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363425546384005@newsletter',
-        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥 🕷️',
+        newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥',
         serverMessageId: 0
     },
     externalAdReply: {
-        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
+        title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
         body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝚍 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
         thumbnailUrl: img,
         sourceUrl: '',
@@ -87,7 +87,7 @@ async function handler(m, { conn, bot, command, args }) {
             }],
             mentions: [m.sender],
             newsletter: {
-                name: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥 🕷️',
+                name: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝗲𝐥',
                 jid: '120363425546384005@newsletter'
             }
         }, global.reply_status);
@@ -118,7 +118,7 @@ async function handler(m, { conn, bot, command, args }) {
 ${cmdsList}
 
 ╭─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╮
-┃ *⌯︙𝐈𝐍 ~ ${bot?.config?.info?.nameBot || 'IN J WICK'}*
+┃ *⌯︙𝐈𝐍 ~ ${bot?.config?.info?.nameBot || 'IN RUSTAM'}*
 ╰─┈─┈─┈─⟞${cat[3]}⟝─┈─┈─┈─╯
 > *وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ*`.trim(), contextInfo: context(m.sender, getImg(bot)) }, { quoted: m });
 }
