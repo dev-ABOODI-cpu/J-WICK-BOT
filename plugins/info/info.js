@@ -59,7 +59,7 @@ const handler = async (m, { conn, bot, config }) => {
 
     await conn.sendMessage(m.chat, {
     text: msg,
-    contextInfo: context(m.sender, "https://i.postimg.cc/4dYymWy1/97fa3a8d01230a0b80a1f9ef6b5fa599.jpg") 
+    contextInfo: context(m.sender, "https://i.postimg.cc/RCnnx4mG/24368e09ba3db60ef4a923467c209dba.jpg") 
   }, { quoted: typeof reply_status !== 'undefined' ? reply_status : m }); // هنا قمنا بإرجاع الـ reply_status مع إضافة بديل آمن
 
 };
@@ -75,11 +75,11 @@ const context = (jid, img) => ({
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363425546384005@newsletter', // تم تحديث الـ JID
-        newsletterName: '𝗝 𝗪𝗶𝗰𝗸 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️', // تم تحديث اسم القناة
+        newsletterName: '𝐑𝐔𝐒𝐓𝐀𝐌 ☣ ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥', // تم تحديث اسم القناة
         serverMessageId: 0
     },
     externalAdReply: {
-        title: "𝗜𝗡 - 𝗝 𝗪𝗶𝗰𝗸 🕷 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞ｗ𝐨𝐫𝐤", // تم تحديث العنوان
+        title: "𝐈𝐍 ⁝|⁝ 𝐑𝐔𝐒𝐓𝐀𝐌 ☣ | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐈𝐍 𝐟𝐫𝐚𝐦𝐞ｗ𝐨𝐫𝐤", // تم تحديث العنوان
         body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚢 𝚊𝚗𝐝 𝚟𝚎𝚛𝚢 𝚏𝚊",
         thumbnailUrl: img,
         sourceUrl: '',
