@@ -6,7 +6,7 @@ import axios from "axios";
 
 /* =========== Client ========== */
 const client = new Client({
-  phoneNumber: '249113388050',
+  phoneNumber: '96876430222',
   prefix: [".", "/", "!"],
   fromMe: false,
   owners: [
